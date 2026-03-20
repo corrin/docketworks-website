@@ -1,0 +1,39 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Docketworks — ERP for Trade & Service Businesses',
+  description = 'Run your trade or service business with clarity. Jobs, scheduling, invoicing, inventory — all in one system.',
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="font-sans text-primary-900 bg-white antialiased">
+    <slot name="header">
+      <Fragment>
+        {/* Default header — can be overridden via named slot */}
+      </Fragment>
+    </slot>
+    <main>
+      <slot />
+    </main>
+    <slot name="footer">
+      <Fragment>
+        {/* Default footer — can be overridden via named slot */}
+      </Fragment>
+    </slot>
+  </body>
+</html>

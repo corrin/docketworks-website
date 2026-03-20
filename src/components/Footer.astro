@@ -1,0 +1,44 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-primary-200 bg-primary-50">
+  <div class="mx-auto max-w-[var(--max-w-site)] px-6 py-12">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <p class="text-lg font-bold text-primary-900">Docketworks</p>
+        <p class="mt-2 text-sm text-primary-500">
+          ERP for trade &amp; service businesses. Run your business with clarity.
+        </p>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold text-primary-700">Product</p>
+        <ul class="mt-3 space-y-2">
+          <li><a href="/features" class="text-sm text-primary-500 hover:text-primary-900">Features</a></li>
+          <li><a href="/pricing" class="text-sm text-primary-500 hover:text-primary-900">Pricing</a></li>
+          <li><a href="/trial" class="text-sm text-primary-500 hover:text-primary-900">Start a trial</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold text-primary-700">Company</p>
+        <ul class="mt-3 space-y-2">
+          <li><a href="/contact" class="text-sm text-primary-500 hover:text-primary-900">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold text-primary-700">Legal</p>
+        <ul class="mt-3 space-y-2">
+          <li><a href="/privacy" class="text-sm text-primary-500 hover:text-primary-900">Privacy</a></li>
+          <li><a href="/terms" class="text-sm text-primary-500 hover:text-primary-900">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-primary-200 pt-6">
+      <p class="text-sm text-primary-400">&copy; {currentYear} Docketworks. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

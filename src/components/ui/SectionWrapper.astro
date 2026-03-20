@@ -1,0 +1,21 @@
+---
+interface Props {
+  class?: string;
+  id?: string;
+  bg?: 'white' | 'light' | 'dark';
+}
+
+const { class: className, id, bg = 'white' } = Astro.props;
+
+const bgClasses = {
+  white: 'bg-white',
+  light: 'bg-primary-50',
+  dark: 'bg-primary-900 text-white',
+};
+---
+
+<section id={id} class:list={[bgClasses[bg], 'py-16 md:py-24', className]}>
+  <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+    <slot />
+  </div>
+</section>

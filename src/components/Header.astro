@@ -1,0 +1,70 @@
+---
+const navLinks = [
+  { href: '/features', label: 'Features' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="border-b border-primary-200 bg-white">
+  <div class="mx-auto flex max-w-[var(--max-w-site)] items-center justify-between px-6 py-4">
+    <a href="/" class="text-xl font-bold tracking-tight text-primary-900">
+      Docketworks
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class="text-sm font-medium text-primary-600 transition-colors hover:text-primary-900"
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="/trial"
+        class="rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-600"
+      >
+        Start your setup
+      </a>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <button
+      type="button"
+      class="rounded-md p-2 text-primary-600 md:hidden"
+      aria-label="Open menu"
+      id="mobile-menu-btn"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile nav -->
+  <div id="mobile-menu" class="hidden border-t border-primary-200 md:hidden">
+    <div class="space-y-1 px-6 py-4">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class="block py-2 text-sm font-medium text-primary-600"
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="/trial"
+        class="mt-2 block rounded-lg bg-accent-500 px-4 py-2 text-center text-sm font-semibold text-white"
+      >
+        Start your setup
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>
