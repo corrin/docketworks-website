@@ -6,6 +6,9 @@ set -euo pipefail
 # manages). Also invoked by .github/workflows/deploy.yml over SSH on every
 # merge to master.
 
+# Non-interactive: this runs over SSH with no TTY, so pnpm must not try to prompt.
+export CI=true
+
 cd /opt/docketworks-website
 
 # Hard-reset to the pushed branch (same shape as the docketworks repo's deploy):
@@ -13,6 +16,9 @@ cd /opt/docketworks-website
 git fetch origin
 git reset --hard origin/master
 
+# Clean install — the original node_modules predates the pnpm pin and was
+# carrying npm cruft; a fresh tree avoids a class of stale-deps problems.
+rm -rf node_modules
 pnpm install --frozen-lockfile
 pnpm build
 
