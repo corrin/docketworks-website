@@ -1,0 +1,33 @@
+---
+/**
+ * Text + screenshot, side by side, alternating. Body goes in the default slot.
+ */
+interface Props {
+  heading: string;
+  /** Image path (under public/). */
+  image: string;
+  imageAlt: string;
+  /** When true, image on the left, text on the right. */
+  reverse?: boolean;
+  bg?: 'white' | 'light';
+}
+
+const { heading, image, imageAlt, reverse = false, bg = 'white' } = Astro.props;
+const bgClass = bg === 'light' ? 'bg-primary-50' : 'bg-white';
+---
+
+<section class:list={[bgClass, 'py-16 md:py-20']}>
+  <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+    <div class:list={['grid items-center gap-10 md:grid-cols-2', reverse && 'md:[&>*:first-child]:order-2']}>
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight text-primary-900 md:text-3xl">{heading}</h2>
+        <div class="mt-4 space-y-4 text-base leading-relaxed text-primary-700">
+          <slot />
+        </div>
+      </div>
+      <div class="overflow-hidden rounded-xl border border-primary-200 bg-primary-100">
+        <img src={image} alt={imageAlt} class="w-full" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>

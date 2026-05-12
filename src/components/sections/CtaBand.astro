@@ -1,0 +1,28 @@
+---
+import Button from '../ui/Button.astro';
+
+interface Props {
+  headline: string;
+  /** Optional supporting line. */
+  subcopy?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  headline,
+  subcopy,
+  ctaLabel = 'Try the live demo',
+  ctaHref = '/demo',
+} = Astro.props;
+---
+
+<section class="bg-primary-900 text-white">
+  <div class="mx-auto max-w-[var(--max-w-site)] px-6 py-16 text-center md:py-20">
+    <h2 class="mx-auto max-w-2xl text-2xl font-bold tracking-tight md:text-3xl">{headline}</h2>
+    {subcopy && <p class="mx-auto mt-3 max-w-2xl text-lg text-primary-300">{subcopy}</p>}
+    <div class="mt-8">
+      <Button href={ctaHref} variant="primary" size="lg">{ctaLabel}</Button>
+    </div>
+  </div>
+</section>

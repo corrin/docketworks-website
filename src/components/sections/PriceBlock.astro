@@ -1,0 +1,45 @@
+---
+import Button from '../ui/Button.astro';
+
+interface Props {
+  /** e.g. "$40". */
+  amount: string;
+  /** e.g. "per staff member / month". */
+  unit: string;
+  /** The anchor line, e.g. "about $1.30 a day per person…". */
+  anchor?: string;
+  /** "What's in the box" bullets. */
+  includes: string[];
+  ctaLabel: string;
+  ctaHref: string;
+  bg?: 'white' | 'light';
+}
+
+const { amount, unit, anchor, includes, ctaLabel, ctaHref, bg = 'white' } = Astro.props;
+const bgClass = bg === 'light' ? 'bg-primary-50' : 'bg-white';
+---
+
+<section class:list={[bgClass, 'py-16 md:py-24']}>
+  <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+    <div class="mx-auto max-w-xl rounded-2xl border border-primary-200 bg-white p-8 text-center md:p-12">
+      <p class="flex items-baseline justify-center gap-2">
+        <span class="text-5xl font-bold tracking-tight text-primary-900">{amount}</span>
+        <span class="text-lg text-primary-600">{unit}</span>
+      </p>
+      {anchor && <p class="mt-3 text-sm text-primary-500">{anchor}</p>}
+      <ul class="mt-8 space-y-3 text-left">
+        {includes.map((item) => (
+          <li class="flex gap-3">
+            <svg class="mt-1 h-5 w-5 flex-none text-accent-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M16.704 5.29a1 1 0 0 1 .006 1.414l-7.5 7.6a1 1 0 0 1-1.42.006l-3.5-3.5a1 1 0 1 1 1.414-1.414l2.79 2.79 6.793-6.886a1 1 0 0 1 1.414-.006Z" clip-rule="evenodd" />
+            </svg>
+            <span class="text-base leading-relaxed text-primary-800">{item}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-8">
+        <Button href={ctaHref} variant="primary" size="lg">{ctaLabel}</Button>
+      </div>
+    </div>
+  </div>
+</section>

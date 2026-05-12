@@ -1,31 +1,39 @@
 ---
 const navLinks = [
-  { href: '/features', label: 'Features' },
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/who-its-for', label: "Who it's for" },
+  { href: '/compare', label: 'Switching' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/contact', label: 'Contact' },
 ];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => pathname === href;
 ---
 
 <header class="border-b border-primary-200 bg-white">
   <div class="mx-auto flex max-w-[var(--max-w-site)] items-center justify-between px-6 py-4">
     <a href="/" class="text-xl font-bold tracking-tight text-primary-900">
-      Docketworks
+      DocketWorks
     </a>
 
     <nav class="hidden items-center gap-8 md:flex">
       {navLinks.map(({ href, label }) => (
         <a
           href={href}
-          class="text-sm font-medium text-primary-600 transition-colors hover:text-primary-900"
+          aria-current={isActive(href) ? 'page' : undefined}
+          class:list={[
+            'text-sm font-medium transition-colors hover:text-primary-900',
+            isActive(href) ? 'text-primary-900' : 'text-primary-600',
+          ]}
         >
           {label}
         </a>
       ))}
       <a
-        href="/trial"
+        href="/demo"
         class="rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-600"
       >
-        Start your setup
+        Try the live demo
       </a>
     </nav>
 
@@ -34,6 +42,8 @@ const navLinks = [
       type="button"
       class="rounded-md p-2 text-primary-600 md:hidden"
       aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
       id="mobile-menu-btn"
     >
       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -48,16 +58,20 @@ const navLinks = [
       {navLinks.map(({ href, label }) => (
         <a
           href={href}
-          class="block py-2 text-sm font-medium text-primary-600"
+          aria-current={isActive(href) ? 'page' : undefined}
+          class:list={[
+            'block py-2 text-sm font-medium',
+            isActive(href) ? 'text-primary-900' : 'text-primary-600',
+          ]}
         >
           {label}
         </a>
       ))}
       <a
-        href="/trial"
+        href="/demo"
         class="mt-2 block rounded-lg bg-accent-500 px-4 py-2 text-center text-sm font-semibold text-white"
       >
-        Start your setup
+        Try the live demo
       </a>
     </div>
   </div>
@@ -66,5 +80,8 @@ const navLinks = [
 <script>
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(open));
+  });
 </script>

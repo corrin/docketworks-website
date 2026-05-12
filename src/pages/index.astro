@@ -1,136 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Button from '../components/ui/Button.astro';
-import SectionWrapper from '../components/ui/SectionWrapper.astro';
-import Card from '../components/ui/Card.astro';
-
-const primaryShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-const accentShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+import Hero from '../components/sections/Hero.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
 ---
 
-<BaseLayout title="Design System — Docketworks">
-  <Header slot="header" />
+<BaseLayout>
+  <Hero
+    headline="Keep a clear head across every job."
+    subcopy="DocketWorks is software for businesses that quote and deliver custom, one-off jobs — where the real product is your team's hours."
+    kicker="Built by a working sheet metal shop to run itself, every day."
+    primaryCta={{ label: 'Try the live demo', href: '/demo' }}
+    secondaryCta={{ label: 'See how it works', href: '/how-it-works' }}
+  />
 
-  <SectionWrapper>
-    <h1 class="text-4xl font-bold">Design System</h1>
-    <p class="mt-2 text-lg text-primary-500">Token showcase — temporary page for Phase 1 verification.</p>
-  </SectionWrapper>
-
-  <!-- Colours -->
-  <SectionWrapper bg="light">
-    <h2 class="text-2xl font-bold">Colours</h2>
-
-    <h3 class="mt-8 text-lg font-semibold">Primary (Slate)</h3>
-    <div class="mt-4 flex flex-wrap gap-2">
-      {primaryShades.map((shade) => (
-        <div class="text-center">
-          <div
-            class={`h-16 w-16 rounded-lg bg-primary-${shade}`}
-            style={`background-color: var(--color-primary-${shade})`}
-          />
-          <p class="mt-1 text-xs text-primary-500">{shade}</p>
-        </div>
-      ))}
+  <section class="bg-white py-16 md:py-24">
+    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+      <p class="text-sm text-primary-400">
+        [ home page content — being built in phase B ]
+      </p>
     </div>
+  </section>
 
-    <h3 class="mt-8 text-lg font-semibold">Accent (Amber)</h3>
-    <div class="mt-4 flex flex-wrap gap-2">
-      {accentShades.map((shade) => (
-        <div class="text-center">
-          <div
-            class="h-16 w-16 rounded-lg"
-            style={`background-color: var(--color-accent-${shade})`}
-          />
-          <p class="mt-1 text-xs text-primary-500">{shade}</p>
-        </div>
-      ))}
-    </div>
-  </SectionWrapper>
-
-  <!-- Typography -->
-  <SectionWrapper>
-    <h2 class="text-2xl font-bold">Typography</h2>
-    <p class="mt-2 text-sm text-primary-500">Inter, Major Third scale (1.25)</p>
-
-    <div class="mt-8 space-y-4">
-      <p class="text-5xl font-bold">5xl — 3.815rem</p>
-      <p class="text-4xl font-bold">4xl — 3.052rem</p>
-      <p class="text-3xl font-bold">3xl — 2.441rem</p>
-      <p class="text-2xl font-bold">2xl — 1.953rem</p>
-      <p class="text-xl font-semibold">xl — 1.563rem</p>
-      <p class="text-lg">lg — 1.25rem</p>
-      <p class="text-base">base — 1rem</p>
-      <p class="text-sm">sm — 0.8rem</p>
-      <p class="text-xs">xs — 0.64rem</p>
-    </div>
-
-    <div class="mt-8">
-      <h3 class="text-lg font-semibold">Font weights</h3>
-      <div class="mt-4 space-y-2">
-        <p class="font-light">Light (300)</p>
-        <p class="font-normal">Regular (400)</p>
-        <p class="font-medium">Medium (500)</p>
-        <p class="font-semibold">Semibold (600)</p>
-        <p class="font-bold">Bold (700)</p>
-        <p class="font-extrabold">Extrabold (800)</p>
-      </div>
-    </div>
-  </SectionWrapper>
-
-  <!-- Buttons -->
-  <SectionWrapper bg="light">
-    <h2 class="text-2xl font-bold">Buttons</h2>
-
-    <h3 class="mt-8 text-lg font-semibold">Variants</h3>
-    <div class="mt-4 flex flex-wrap items-center gap-4">
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="outline">Outline</Button>
-    </div>
-
-    <h3 class="mt-8 text-lg font-semibold">Sizes</h3>
-    <div class="mt-4 flex flex-wrap items-center gap-4">
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
-      <Button size="lg">Large</Button>
-    </div>
-
-    <h3 class="mt-8 text-lg font-semibold">As links</h3>
-    <div class="mt-4 flex flex-wrap items-center gap-4">
-      <Button href="/trial" variant="primary" size="lg">Start your setup</Button>
-      <Button href="/contact" variant="outline" size="lg">Book a demo</Button>
-    </div>
-  </SectionWrapper>
-
-  <!-- Cards -->
-  <SectionWrapper>
-    <h2 class="text-2xl font-bold">Cards</h2>
-    <div class="mt-8 grid gap-6 sm:grid-cols-3">
-      <Card variant="default">
-        <h3 class="font-semibold">Default</h3>
-        <p class="mt-2 text-sm text-primary-500">No border, no shadow.</p>
-      </Card>
-      <Card variant="bordered">
-        <h3 class="font-semibold">Bordered</h3>
-        <p class="mt-2 text-sm text-primary-500">Subtle border for grouping.</p>
-      </Card>
-      <Card variant="elevated">
-        <h3 class="font-semibold">Elevated</h3>
-        <p class="mt-2 text-sm text-primary-500">Shadow for emphasis.</p>
-      </Card>
-    </div>
-  </SectionWrapper>
-
-  <!-- Section backgrounds -->
-  <SectionWrapper bg="dark">
-    <h2 class="text-2xl font-bold">Dark section</h2>
-    <p class="mt-2 text-primary-300">This is a dark background section — used for CTAs and emphasis blocks.</p>
-    <div class="mt-6">
-      <Button variant="primary" size="lg">CTA on dark</Button>
-    </div>
-  </SectionWrapper>
-
-  <Footer slot="footer" />
+  <CtaBand
+    headline="See it for yourself."
+    subcopy="A real, working system — no call, no pitch."
+  />
 </BaseLayout>

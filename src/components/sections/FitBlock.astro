@@ -1,0 +1,25 @@
+---
+/**
+ * "It already fits a shop like yours / it might not be you." A confident fit
+ * filter, in plain words — never the word "opinionated" or "configurable".
+ * Heading + body slot (the description + the honest caveat + any anecdote).
+ */
+interface Props {
+  heading: string;
+  bg?: 'white' | 'light';
+}
+
+const { heading, bg = 'light' } = Astro.props;
+const bgClass = bg === 'light' ? 'bg-primary-50' : 'bg-white';
+---
+
+<section class:list={[bgClass, 'py-16 md:py-24']}>
+  <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+    <div class="max-w-3xl">
+      <h2 class="text-2xl font-bold tracking-tight text-primary-900 md:text-3xl">{heading}</h2>
+      <div class="mt-5 space-y-4 text-lg leading-relaxed text-primary-700">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+---
+/**
+ * One "Coming from X" item on the /switching page. Body in the default slot.
+ * Gains-framed; if the not-fit case is worth a mention, say it generously
+ * ("if your problem is Y, honestly, use that") — never as a knock.
+ */
+interface Props {
+  /** e.g. "From a whiteboard & paper folders". */
+  from: string;
+}
+
+const { from } = Astro.props;
+---
+
+<div class="border-t border-primary-200 py-8 first:border-t-0 first:pt-0">
+  <h3 class="text-xl font-semibold tracking-tight text-primary-900">{from}</h3>
+  <div class="mt-3 max-w-3xl space-y-3 text-base leading-relaxed text-primary-700">
+    <slot />
+  </div>
+</div>

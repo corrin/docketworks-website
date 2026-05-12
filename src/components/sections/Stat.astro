@@ -1,0 +1,27 @@
+---
+/**
+ * A single before/after figure. Pass `value` as the headline number/phrase and
+ * `label` as what it measures. If `value` is omitted (or is the placeholder
+ * sentinel "TBD"), it renders an obvious "[number coming]" treatment so it's
+ * clear the real figure hasn't been supplied yet.
+ */
+interface Props {
+  value?: string;
+  label: string;
+  /** Optional sentence under the figure (the "before" side of the story). */
+  caption?: string;
+}
+
+const { value, label, caption } = Astro.props;
+const hasValue = !!value && value.trim() !== '' && value.trim().toUpperCase() !== 'TBD';
+---
+
+<div class="rounded-xl border border-primary-200 bg-white p-8">
+  {hasValue ? (
+    <p class="text-4xl font-bold tracking-tight text-primary-900">{value}</p>
+  ) : (
+    <p class="text-2xl font-bold tracking-tight text-primary-400">[ number coming ]</p>
+  )}
+  <p class="mt-2 text-base font-medium text-primary-700">{label}</p>
+  {caption && <p class="mt-3 text-sm leading-relaxed text-primary-500">{caption}</p>}
+</div>

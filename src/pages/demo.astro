@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DemoForm from '../components/DemoForm.tsx';
+---
+
+<BaseLayout
+  title="See it — DocketWorks"
+  description="See a real, working DocketWorks — no call, no pitch. Or book a walkthrough."
+>
+  <section class="bg-white py-20 md:py-28">
+    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+      <h1 class="text-3xl font-bold tracking-tight text-primary-900 md:text-4xl">See it</h1>
+      <p class="mt-4 max-w-2xl text-lg text-primary-700">
+        See a real, working system — no call, no pitch.
+      </p>
+      <div class="mt-8 max-w-xl">
+        <DemoForm client:load />
+      </div>
+      <p class="mt-10 text-sm text-primary-400">[ "book a walkthrough" scheduler + "your own copy" line — being built in phase B; form wired up in phase C ]</p>
+    </div>
+  </section>
+</BaseLayout>
