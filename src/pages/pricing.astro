@@ -1,12 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PriceBlock from '../components/sections/PriceBlock.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+
+const includes = [
+  'Every feature in the box — no add-on modules.',
+  'No paying extra for the good bits.',
+  'Works with Xero.',
+  'No plan tiers.',
+  'No checkout.',
+];
 ---
 
-<BaseLayout title="Pricing — DocketWorks">
-  <section class="bg-white py-20 md:py-28">
+<BaseLayout
+  title="Pricing — DocketWorks"
+  description="$40 per staff member / month. Everything in the box, works with Xero, no add-on modules, no tiers."
+>
+  <section class="bg-primary-50 py-20 md:py-24">
     <div class="mx-auto max-w-[var(--max-w-site)] px-6">
-      <h1 class="text-3xl font-bold tracking-tight text-primary-900 md:text-4xl">Pricing</h1>
-      <p class="mt-4 text-sm text-primary-400">[ content being built in phase B ]</p>
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-primary-900 md:text-4xl">Pricing</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-primary-700">
+        One price. Everything’s in it. That’s the page.
+      </p>
     </div>
   </section>
+
+  <PriceBlock
+    amount="$40"
+    unit="per staff member / month"
+    anchor="About $1.30 a day per person — less than you lose on one job that gets mis-scheduled."
+    includes={includes}
+    ctaLabel="Try the live demo"
+    ctaHref="/demo"
+  />
+
+  <section class="bg-white pb-16 md:pb-24">
+    <div class="mx-auto max-w-2xl px-6 text-center">
+      <p class="text-base leading-relaxed text-primary-600">
+        The price you see is the price. Anything else worth talking about is a
+        conversation, not a line of copy here.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand headline="Have a look first — no call, no pitch." />
 </BaseLayout>

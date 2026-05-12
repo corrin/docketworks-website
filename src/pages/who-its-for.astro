@@ -1,12 +1,138 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ChecklistBlock from '../components/sections/ChecklistBlock.astro';
+import FitBlock from '../components/sections/FitBlock.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+
+// The "four businesses, one story" pattern. Other businesses are described by
+// type only — a real company name goes here only once that company has signed a
+// reference-site agreement. MSM may be named.
+const businesses = [
+  { name: 'A cabinetmaker who scaled', detail: 'built a name for top work, grew, builds kitchens' },
+  { name: 'A superyacht fit-out firm', detail: 'one-off interiors, every job custom' },
+  { name: 'A geotech outfit', detail: 'started by a grad who was good with clients, grew' },
+  { name: 'Morris Sheetmetals — us', detail: '~15-person sheet metal shop; DocketWorks runs it' },
+];
+
+const fitItems = [
+  'Around 15 staff.',
+  'The real product is people’s hours — even when the invoice says fabrications, reports, or custom installations.',
+  'Every job is custom; you’re not making the same product over and over.',
+  'A couple of thousand jobs a year, so quick data entry matters.',
+  'Separate accounting — Xero is your books; DocketWorks isn’t.',
+  'Materials sold near cost; the profit’s in the hours.',
+  'Roughly one active job per staff member, mostly self-contained.',
+];
+
+const roadmap = [
+  'Timesheets on a phone or tablet',
+  'Leads / pre-sales tracking (coming soon)',
+  'Smarter handling of repeat jobs',
+  'GPS / site-location features',
+  'AI to help with quoting and following your job steps',
+];
 ---
 
-<BaseLayout title="Who it's for — DocketWorks">
-  <section class="bg-white py-20 md:py-28">
+<BaseLayout
+  title="Who it’s for — DocketWorks"
+  description="For shops with one story: you came up doing the work, you built a name, you scaled — and now the admin’s threatening to drown you. If that’s you, you’ll love it. If it isn’t, we’ll tell you."
+>
+  <section class="bg-primary-50 py-20 md:py-24">
     <div class="mx-auto max-w-[var(--max-w-site)] px-6">
-      <h1 class="text-3xl font-bold tracking-tight text-primary-900 md:text-4xl">Who it's for</h1>
-      <p class="mt-4 text-sm text-primary-400">[ content being built in phase B ]</p>
+      <h1 class="max-w-3xl text-3xl font-bold leading-tight tracking-tight text-primary-900 md:text-4xl">
+        Who it’s for
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-primary-700">
+        You were great at the work. You built a name for it. You scaled. Now the
+        admin’s threatening to drown you, and the place wobbles whenever one key
+        person’s away.
+      </p>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-primary-700">
+        We keep meeting that story. A cabinetmaker who scaled. A superyacht fit-out
+        firm. A geotech outfit. A sheet metal shop — us. Four versions of one thing,
+        and we think there are more.
+      </p>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+        {businesses.map((b) => (
+          <li class="rounded-xl border border-primary-200 bg-white p-5">
+            <p class="font-semibold text-primary-900">{b.name}</p>
+            <p class="mt-1 text-sm text-primary-600">{b.detail}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
+
+  <ChecklistBlock
+    heading="The shape it fits"
+    lead="Built around how MSM works — the closer your shop looks to this, the better the fit."
+    items={fitItems}
+    caveat="Every business is different somewhere; the further off this, the more the fit gets questionable."
+  />
+
+  <FitBlock heading="It might not be you — and we’ll tell you so." bg="light">
+    <p>
+      We obsess about one kind of business — the story above. If that’s you, you’ll
+      love it: it already knows how a shop like yours runs, so there’s nothing to
+      set up and no settings to fiddle with.
+    </p>
+    <p>
+      If your shop works in a fundamentally different way — say you need deep
+      jobs-inside-jobs sequencing — a tool with more switches will suit you better,
+      or honestly, Asana or Monday. We’d rather point you there than have you find
+      out the hard way. We’re not trying to be the best job software for most shops;
+      we’re trying to be the best for shops with this story.
+    </p>
+  </FitBlock>
+
+  {/* Who built this */}
+  <section class="bg-white py-16 md:py-24">
+    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+      <div class="grid items-center gap-10 md:grid-cols-2">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-primary-900 md:text-3xl">Who built this</h2>
+          <p class="mt-4 text-base leading-relaxed text-primary-700">
+            Morris Sheetmetals is a working ~15-person sheet metal shop. DocketWorks
+            is the system it runs on — built from the inside, by the people doing the
+            work. That’s why it’s quick, why there’s no fluff, why every field on the
+            screen is there for a reason.
+          </p>
+          <p class="mt-4 text-base leading-relaxed text-primary-700">
+            You’re not buying a software company’s guess at how your business works.
+            You’re buying the tool another shop built for itself.
+          </p>
+        </div>
+        <figure>
+          <img
+            src="/placeholder-msm-shopfloor.svg"
+            alt="The Morris Sheetmetals shop floor — people doing the work"
+            class="w-full rounded-xl border border-primary-200"
+            loading="lazy"
+          />
+          <figcaption class="mt-2 text-sm text-primary-500">The Morris Sheetmetals shop floor.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  {/* Where it's headed */}
+  <section class="bg-primary-50 py-16 md:py-24">
+    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+      <h2 class="max-w-2xl text-2xl font-bold tracking-tight text-primary-900 md:text-3xl">Where it’s headed</h2>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-primary-700">
+        It’s young. Parts of the system still assume how MSM works, and shaping it
+        to a new shop takes time. Here’s what we’re building next — things that exist
+        in the system but aren’t yet at MSM’s “faster than paper” bar:
+      </p>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+        {roadmap.map((r) => (
+          <li class="flex gap-3 rounded-lg border border-primary-200 bg-white px-4 py-3 text-base text-primary-800">
+            <span class="text-accent-500">→</span>{r}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand headline="Think that’s your shop? Have a look." />
 </BaseLayout>

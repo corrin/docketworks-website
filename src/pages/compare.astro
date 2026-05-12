@@ -1,12 +1,78 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FromYourSetup from '../components/sections/FromYourSetup.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
 ---
 
-<BaseLayout title="Coming from a whiteboard, a spreadsheet, or Trello? — DocketWorks">
-  <section class="bg-white py-20 md:py-28">
+<BaseLayout
+  title="Coming from a whiteboard, a spreadsheet, or Trello? — DocketWorks"
+  description="Most shops we work with are on a whiteboard, a spreadsheet, Xero, or Trello today. Here's what changes when you move to DocketWorks — and where another tool would suit you better."
+>
+  <section class="bg-primary-50 py-20 md:py-24">
     <div class="mx-auto max-w-[var(--max-w-site)] px-6">
-      <h1 class="text-3xl font-bold tracking-tight text-primary-900 md:text-4xl">Coming from a whiteboard, a spreadsheet, or Trello?</h1>
-      <p class="mt-4 text-sm text-primary-400">[ content being built in phase B ]</p>
+      <h1 class="max-w-3xl text-3xl font-bold leading-tight tracking-tight text-primary-900 md:text-4xl">
+        Coming from a whiteboard, a spreadsheet, or Trello?
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-primary-700">
+        Most shops we work with are running on a whiteboard, a spreadsheet, Xero,
+        or Trello today. Here’s what changes when you move to DocketWorks.
+      </p>
     </div>
   </section>
+
+  <section class="bg-white py-12 md:py-16">
+    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+      <FromYourSetup from="From paper and a whiteboard">
+        <p>
+          You keep the board — every job’s a card, moving through the stages of
+          your shop. But now you also get the picture a whiteboard can’t show you:
+          how your billable hours are trending, how many quotes you’re winning,
+          whether the pipeline’s full enough to keep everyone busy.
+        </p>
+        <p>
+          And the knowledge doesn’t walk out the door when one key person’s on
+          leave — it’s on the board, in the jobs, not in their head.
+        </p>
+      </FromYourSetup>
+
+      <FromYourSetup from="From a spreadsheet">
+        <p>
+          Timesheets and purchase orders feed the jobs by themselves — the numbers
+          are live, and you’re not typing it all in twice. The thing you built the
+          spreadsheet to do, the system does, and it keeps doing it when you’re busy.
+        </p>
+      </FromYourSetup>
+
+      <FromYourSetup from="From Xero (or Xero Projects)">
+        <p>
+          Xero stays your books — DocketWorks isn’t trying to replace it. DocketWorks
+          is the shop-floor side that feeds it: the quoting, the scheduling, the
+          costing, the board. The two work together.
+        </p>
+      </FromYourSetup>
+
+      <FromYourSetup from="From Trello, Asana, or Monday">
+        <p>
+          Those are genuinely great when <em>one</em> project has real depth: jobs
+          inside jobs, complex sequencing, moving sub-jobs between stations. If
+          that’s the problem you’ve got — honestly, use them.
+        </p>
+        <p>
+          DocketWorks is for the other shape: dozens of small, mostly self-contained
+          jobs juggled at once, with timesheets and purchase orders wired into them
+          — and it does the quotes and invoices too. Pick the one that matches how
+          your jobs actually look.
+        </p>
+      </FromYourSetup>
+
+      <FromYourSetup from="Accounting — not our job, by design">
+        <p>
+          Xero or MYOB stays your books. DocketWorks feeds it; it doesn’t try to be
+          it. That’s deliberate.
+        </p>
+      </FromYourSetup>
+    </div>
+  </section>
+
+  <CtaBand headline="Sounds like your shop? See it." subcopy="A real, working system — no call, no pitch." />
 </BaseLayout>

@@ -2,10 +2,11 @@
  * Server-side configuration. Read from `process.env` (the Node adapter exposes
  * runtime env vars there). NEVER import this from client code.
  *
- * In production every value below must be set — `getEnv()` throws if one is
- * missing. In dev, missing values fall back to obvious placeholders so the site
- * runs without a real `.env` (forms log instead of sending, the demo link is a
- * dummy, etc.). See `.env.example`.
+ * `getEnv()` never throws — anything not set falls back to an obvious
+ * placeholder and `isPlaceholder` is `true`. That keeps it safe to call from
+ * prerendered pages at build time. In production, set every variable in
+ * `.env.example`; code paths that genuinely need a real value (the email send)
+ * check `isPlaceholder` themselves. See `.env.example`.
  */
 
 export interface AppEnv {
@@ -43,7 +44,6 @@ let cached: AppEnv | null = null;
 export function getEnv(): AppEnv {
   if (cached) return cached;
 
-  const isProd = process.env.NODE_ENV === 'production';
   const pick = (key: string, fallback: string): { value: string; missing: boolean } => {
     const v = process.env[key];
     if (v && v.trim() !== '') return { value: v.trim(), missing: false };
@@ -67,13 +67,6 @@ export function getEnv(): AppEnv {
     const { value, missing: isMissing } = pick(envKey, PLACEHOLDERS[field] as string);
     resolved[field] = value;
     if (isMissing) missing.push(envKey);
-  }
-
-  if (isProd && missing.length > 0) {
-    throw new Error(
-      `Missing required environment variables: ${missing.join(', ')}. ` +
-        `See .env.example.`,
-    );
   }
 
   const provider = resolved.emailProvider === 'postmark' ? 'postmark' : 'resend';

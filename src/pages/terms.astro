@@ -1,12 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEnv } from '../lib/env';
+
+const { operatorEmail } = getEnv();
 ---
 
-<BaseLayout title="Terms — DocketWorks">
+<BaseLayout title="Terms — DocketWorks" description="The terms for this website. The software is a separate agreement.">
   <section class="bg-white py-20 md:py-28">
-    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+    <div class="mx-auto max-w-2xl px-6">
       <h1 class="text-3xl font-bold tracking-tight text-primary-900 md:text-4xl">Terms</h1>
-      <p class="mt-4 text-sm text-primary-400">[ placeholder — full text being added in phase B ]</p>
+      <div class="mt-6 space-y-4 text-base leading-relaxed text-primary-700">
+        <p>This is a v1 placeholder — we’ll write the full thing properly.</p>
+        <p>
+          For now: this website is here to tell you about DocketWorks. Using
+          DocketWorks the software is a separate agreement, sorted out when you sign
+          up — nothing on this site is that agreement, and nothing here is a contract.
+        </p>
+        <p>
+          The screenshots, figures and examples on this site are illustrative.
+          We try to keep them honest, but they’re not a promise of exactly what
+          you’ll see.
+        </p>
+        <p>
+          Questions? Email
+          <a href={`mailto:${operatorEmail}`} class="font-medium text-accent-700 hover:text-accent-800">{operatorEmail}</a>.
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>

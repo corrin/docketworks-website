@@ -1,12 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEnv } from '../lib/env';
+
+const { operatorEmail } = getEnv();
 ---
 
-<BaseLayout title="Privacy — DocketWorks">
+<BaseLayout title="Privacy — DocketWorks" description="What this site does with your details. Short version: not much.">
   <section class="bg-white py-20 md:py-28">
-    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+    <div class="mx-auto max-w-2xl px-6">
       <h1 class="text-3xl font-bold tracking-tight text-primary-900 md:text-4xl">Privacy</h1>
-      <p class="mt-4 text-sm text-primary-400">[ placeholder — full text being added in phase B ]</p>
+      <div class="mt-6 space-y-4 text-base leading-relaxed text-primary-700">
+        <p>Short version: this site doesn’t do much with your details, because it doesn’t collect much.</p>
+        <p>
+          <strong>No analytics, no cookies.</strong> This site doesn’t run a tracker
+          and doesn’t set cookies. There’s nothing to opt out of.
+        </p>
+        <p>
+          <strong>If you fill in a form.</strong> If you ask to try the live demo or
+          book a walkthrough, we use what you tell us — your name, business, email,
+          what you use now — to get back to you about DocketWorks. We don’t sell it,
+          we don’t share it, we don’t add you to a list.
+        </p>
+        <p>
+          Want it deleted, or have a question? Email
+          <a href={`mailto:${operatorEmail}`} class="font-medium text-accent-700 hover:text-accent-800">{operatorEmail}</a>.
+        </p>
+        <p class="text-sm text-primary-500">This is a v1 page; we’ll flesh it out as the site grows. Last updated when it was written.</p>
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -1,22 +1,87 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import DemoForm from '../components/DemoForm.tsx';
+import { getEnv } from '../lib/env';
+
+const { schedulerEmbedUrl, isPlaceholder } = getEnv();
+const hasScheduler = !isPlaceholder && !schedulerEmbedUrl.includes('PLACEHOLDER');
 ---
 
 <BaseLayout
   title="See it — DocketWorks"
-  description="See a real, working DocketWorks — no call, no pitch. Or book a walkthrough."
+  description="See a real, working DocketWorks — no call, no pitch. Or grab a time and we'll walk you through it."
 >
-  <section class="bg-white py-20 md:py-28">
+  <section class="bg-primary-50 py-20 md:py-24">
     <div class="mx-auto max-w-[var(--max-w-site)] px-6">
-      <h1 class="text-3xl font-bold tracking-tight text-primary-900 md:text-4xl">See it</h1>
-      <p class="mt-4 max-w-2xl text-lg text-primary-700">
-        See a real, working system — no call, no pitch.
+      <h1 class="max-w-3xl text-3xl font-bold leading-tight tracking-tight text-primary-900 md:text-4xl">
+        See it
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-primary-700">
+        Curious, but not curious enough to sit through being sold to? Fair enough.
+        Have a poke around a real, working system first.
       </p>
-      <div class="mt-8 max-w-xl">
-        <DemoForm client:load />
+    </div>
+  </section>
+
+  {/* Primary: the live demo */}
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+      <div class="grid gap-10 md:grid-cols-2">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-primary-900 md:text-3xl">
+            Try the live demo
+          </h2>
+          <p class="mt-4 text-base leading-relaxed text-primary-700">
+            A real, working DocketWorks with a shop’s worth of sample data in it.
+            No call, no pitch — leave a few details and we’ll show you the address
+            and login on the spot, and email it to you so it’s there when you want it.
+          </p>
+        </div>
+        <div>
+          <DemoForm client:load />
+        </div>
       </div>
-      <p class="mt-10 text-sm text-primary-400">[ "book a walkthrough" scheduler + "your own copy" line — being built in phase B; form wired up in phase C ]</p>
+    </div>
+  </section>
+
+  {/* Secondary: book a walkthrough */}
+  <section class="bg-primary-50 py-16 md:py-20">
+    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+      <h2 class="text-2xl font-bold tracking-tight text-primary-900 md:text-3xl">
+        Or have it walked through
+      </h2>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-primary-700">
+        Rather Corrin showed you around it live and you asked questions as you go?
+        Grab a time.
+      </p>
+      <div class="mt-6 overflow-hidden rounded-xl border border-primary-200 bg-white">
+        {hasScheduler ? (
+          <iframe
+            src={schedulerEmbedUrl}
+            title="Book a walkthrough"
+            class="h-[640px] w-full"
+            loading="lazy"
+          ></iframe>
+        ) : (
+          <div class="flex h-48 items-center justify-center p-6 text-sm text-primary-500">
+            [ booking scheduler embed — set <code class="mx-1 rounded bg-primary-100 px-1">SCHEDULER_EMBED_URL</code> ]
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  {/* Your own copy */}
+  <section class="bg-white py-16 md:py-24">
+    <div class="mx-auto max-w-[var(--max-w-site)] px-6">
+      <h2 class="text-2xl font-bold tracking-tight text-primary-900 md:text-3xl">
+        Want your own copy to try properly?
+      </h2>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-primary-700">
+        We can set you up your own copy of the system, with your jobs in it, so you
+        can really put it through its paces. We do that together once we’ve talked —
+        ask on the call.
+      </p>
     </div>
   </section>
 </BaseLayout>

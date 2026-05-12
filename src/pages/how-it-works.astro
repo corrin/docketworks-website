@@ -1,12 +1,113 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FeatureRow from '../components/sections/FeatureRow.astro';
+import VideoEmbed from '../components/sections/VideoEmbed.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
 ---
 
-<BaseLayout title="How it works — DocketWorks">
-  <section class="bg-white py-20 md:py-28">
+<BaseLayout
+  title="How it works — DocketWorks"
+  description="A board for every job, timesheets and POs wired into the jobs, quoting that knows what materials cost, and the reports a whiteboard never gave you."
+>
+  <section class="bg-primary-50 py-20 md:py-24">
     <div class="mx-auto max-w-[var(--max-w-site)] px-6">
-      <h1 class="text-3xl font-bold tracking-tight text-primary-900 md:text-4xl">How it works</h1>
-      <p class="mt-4 text-sm text-primary-400">[ content being built in phase B ]</p>
+      <h1 class="max-w-3xl text-3xl font-bold leading-tight tracking-tight text-primary-900 md:text-4xl">
+        How it works
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-primary-700">
+        Underneath, it’s a board for every job, with timesheets and purchase
+        orders wired straight into the jobs — plus quoting, reports and scheduling.
+        Here’s the shape of it.
+      </p>
     </div>
   </section>
+
+  <FeatureRow
+    heading="What it looks like"
+    image="/placeholder-screenshot-board.svg"
+    imageAlt="The DocketWorks job board — columns of job cards, with tabs for drawings and more"
+  >
+    <p>
+      A board, much like Trello’s — every job is a card you can see at a glance,
+      moving through the stages of your shop. Open a card and there are tabs for
+      the things that job needs: drawings, costs, the timesheet entries against it,
+      the lot.
+    </p>
+  </FeatureRow>
+
+  <FeatureRow
+    heading="Keeping every job moving"
+    image="/placeholder-screenshot-board.svg"
+    imageAlt="A job card on the board, showing its stage, due date, and who it’s assigned to"
+    reverse
+    bg="light"
+  >
+    <p>
+      This is the strongest part of the system. Every job has a stage and a due
+      date; you can see the whole shop’s worth of work in one view, spot what’s
+      slipping, and reassign a job to someone else in a couple of clicks — and see
+      straight away what that does to your delivery dates.
+    </p>
+    <p>
+      When someone’s off sick or on leave, the work doesn’t live in their head —
+      it’s on the board.
+    </p>
+  </FeatureRow>
+
+  <FeatureRow
+    heading="Timesheets and purchase orders, wired into the jobs"
+    image="/placeholder-screenshot-timesheet.svg"
+    imageAlt="A timesheet entry in DocketWorks, with the time going against a job"
+  >
+    <p>
+      When a staff member fills in their timesheet, it does two things at once: it
+      gets them paid, and it puts that time against a job. No double entry, no
+      “I’ll reconcile it later”.
+    </p>
+    <p>
+      Same with a purchase order: raising it orders the material <em>and</em> puts
+      the cost against the job it’s for. So at any moment you can see what a job
+      has actually cost you in hours and materials — not what you guessed it would.
+    </p>
+  </FeatureRow>
+
+  <FeatureRow
+    heading="Quoting"
+    image="/placeholder-screenshot-quote.svg"
+    imageAlt="Building a quote in DocketWorks, with material prices pulled in automatically"
+    reverse
+    bg="light"
+  >
+    <p>
+      It knows what materials cost — it keeps your suppliers’ price lists up to
+      date for you, so a quote starts from real numbers. There’s a chatbot to help
+      you draft one, you can refine a quote and see its old versions, and there’s a
+      counter for how many days a quote’s been sitting waiting on the customer.
+    </p>
+    <p>
+      Solid, and it does the job — it’s the part we’re still sharpening.
+    </p>
+  </FeatureRow>
+
+  <FeatureRow
+    heading="Reports and scheduling"
+    image="/placeholder-screenshot-reports.svg"
+    imageAlt="DocketWorks reports — billable-hours trends, quote acceptance, pipeline"
+  >
+    <p>
+      The picture a whiteboard never gave you: how your billable hours are trending
+      day to day and week to week, how many quotes you’re winning, what share of
+      the team’s time actually gets billed, and whether the pipeline’s full enough
+      to keep everyone busy.
+    </p>
+  </FeatureRow>
+
+  <VideoEmbed
+    poster="/placeholder-demo-video-poster.svg"
+    posterAlt="DocketWorks demo video"
+    caption="Watch the ~3-minute tour."
+    bg="light"
+  />
+
+  <CtaBand headline="Have a poke around it yourself." subcopy="A real, working system — no call, no pitch." />
 </BaseLayout>
