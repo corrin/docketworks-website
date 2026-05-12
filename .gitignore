@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# local-only pitch / positioning source material — not for the public repo
+reference/
+
 # macOS-specific files
 .DS_Store
 
