@@ -37,6 +37,27 @@ to the browser.
 | `SHARED_DEMO_PASSWORD` | Password for the shared demo |
 | `SCHEDULER_EMBED_URL` | Embed/booking link for the "book a walkthrough" scheduler (Cal.com or Calendly) |
 
+## Deploy
+
+Runs under PM2 on the server at `/opt/docketworks-website`, behind nginx.
+
+- **Automatic:** `.github/workflows/deploy.yml` runs on every push to `master` —
+  it SSHes to the server and runs `deploy/deploy.sh` (`git fetch` + hard-reset to
+  `origin/master` → `pnpm install --frozen-lockfile` → `pnpm build` →
+  `pm2 restart docketworks-website`). Same pattern as the `docketworks` repo's
+  `deploy-uat.yml`. You can also trigger it by hand (Actions → Deploy → Run
+  workflow), or just run `deploy/deploy.sh` on the server.
+- **Repo secrets it needs** (Settings → Secrets and variables → Actions):
+  `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY`.
+- **Runtime env on the server:** the variables in `.env.example` must be present
+  in the PM2 process's environment for the live-demo form to actually send mail
+  (without them the site still runs — the form just logs instead of sending).
+  How that's wired (a server-side env file sourced before `pm2 start`, exported
+  in the deploy environment, etc.) is up to the server config.
+
+`.github/workflows/ci.yml` runs `pnpm build` + `pnpm test` on every push/PR to
+`master`.
+
 ## Project layout
 
 ```

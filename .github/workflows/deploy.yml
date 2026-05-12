@@ -1,0 +1,27 @@
+name: Deploy
+
+# Same pattern as the docketworks repo's deploy-uat.yml: on a merge to the
+# default branch, SSH to the server and run the deploy script there.
+#
+# Requires three repo secrets (Settings → Secrets and variables → Actions):
+#   DEPLOY_HOST     — the server hostname / IP
+#   DEPLOY_USER     — SSH user
+#   DEPLOY_SSH_KEY  — that user's private key (the same key/host you use for
+#                     the docketworks repo's UAT deploy will do)
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on the server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: bash /opt/docketworks-website/deploy/deploy.sh
