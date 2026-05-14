@@ -19,10 +19,13 @@
     "@astrojs/preact": "^5.0.2",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.0.7",
+    "dotenv": "^17.4.2",
+    "nodemailer": "^8.0.7",
     "preact": "^10.29.0",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
+    "@types/nodemailer": "^8.0.0",
     "vitest": "^4.1.6"
   }
 }

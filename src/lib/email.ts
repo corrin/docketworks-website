@@ -1,13 +1,12 @@
 /**
- * Transactional email — provider-agnostic.
- *
- * One `sendEmail()`; behind it a switch on `EMAIL_PROVIDER` (resend | postmark)
- * hitting the provider's REST API via `fetch` (no SDK). When config is missing
- * (dev / build with no real `.env`), it logs the email instead of sending and
- * returns — so the site runs and tests don't touch the network.
+ * Transactional email — sends via the operator's Microsoft 365 mailbox over
+ * SMTP (smtp.office365.com:587, STARTTLS, app-password auth). When config is
+ * missing (dev / build with no real `.env`), it logs the email instead of
+ * sending and returns — so the site runs and tests don't touch the network.
  *
  * NEVER import this from client code.
  */
+import nodemailer, { type Transporter } from 'nodemailer';
 import { getEnv } from './env';
 
 export interface OutgoingEmail {
@@ -31,7 +30,27 @@ export interface DemoCreds {
   password: string;
 }
 
-/** Send one email. Throws on failure (non-2xx from the provider). */
+let cachedTransport: Transporter | null = null;
+
+function getTransport(): Transporter {
+  if (cachedTransport) return cachedTransport;
+  const env = getEnv();
+  cachedTransport = nodemailer.createTransport({
+    host: 'smtp.office365.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: { user: env.smtpUser, pass: env.smtpPassword },
+  });
+  return cachedTransport;
+}
+
+/** Test-only: clear the memoised transport so a fresh env is read. */
+export function _resetTransportCache(): void {
+  cachedTransport = null;
+}
+
+/** Send one email. Throws on failure (transport / auth / SMTP-level error). */
 export async function sendEmail(msg: OutgoingEmail): Promise<void> {
   const env = getEnv();
 
@@ -42,55 +61,13 @@ export async function sendEmail(msg: OutgoingEmail): Promise<void> {
     return;
   }
 
-  if (env.emailProvider === 'postmark') {
-    const res = await fetch('https://api.postmarkapp.com/email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'X-Postmark-Server-Token': env.emailApiKey,
-      },
-      body: JSON.stringify({
-        From: env.emailFrom,
-        To: msg.to,
-        Subject: msg.subject,
-        TextBody: msg.text,
-        HtmlBody: msg.html,
-        MessageStream: 'outbound',
-      }),
-    });
-    if (!res.ok) {
-      throw new Error(`Postmark send failed: ${res.status} ${await safeBody(res)}`);
-    }
-    return;
-  }
-
-  // default: resend
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${env.emailApiKey}`,
-    },
-    body: JSON.stringify({
-      from: env.emailFrom,
-      to: msg.to,
-      subject: msg.subject,
-      text: msg.text,
-      html: msg.html,
-    }),
+  await getTransport().sendMail({
+    from: env.emailFrom,
+    to: msg.to,
+    subject: msg.subject,
+    text: msg.text,
+    html: msg.html,
   });
-  if (!res.ok) {
-    throw new Error(`Resend send failed: ${res.status} ${await safeBody(res)}`);
-  }
-}
-
-async function safeBody(res: Response): Promise<string> {
-  try {
-    return (await res.text()).slice(0, 500);
-  } catch {
-    return '(no body)';
-  }
 }
 
 /** Tell the operator a new lead came in via the live-demo form. */

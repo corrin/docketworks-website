@@ -38,9 +38,9 @@ beforeEach(() => {
   process.env.SHARED_DEMO_USERNAME = ENV.username;
   process.env.SHARED_DEMO_PASSWORD = ENV.password;
   process.env.OPERATOR_EMAIL = ENV.operator;
-  process.env.EMAIL_PROVIDER = 'resend';
-  process.env.EMAIL_API_KEY = 'k';
-  process.env.EMAIL_FROM = 'from@test.example';
+  process.env.SMTP_USER = 'ops@test.example';
+  process.env.SMTP_PASSWORD = 'app-password';
+  process.env.EMAIL_FROM = 'ops@test.example';
   _resetEnvCache();
   _resetRateLimit();
 });

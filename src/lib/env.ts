@@ -1,6 +1,12 @@
 /**
- * Server-side configuration. Read from `process.env` (the Node adapter exposes
- * runtime env vars there). NEVER import this from client code.
+ * Server-side configuration. Read from `process.env`. NEVER import this from
+ * client code.
+ *
+ * `dotenv/config` is imported for its side-effect: at module load it reads
+ * `${cwd}/.env` and populates `process.env`. Astro/Vite only exposes .env to
+ * `import.meta.env` (compile-time), not to `process.env` (runtime), so we
+ * load it ourselves. Works the same in dev (`astro dev`), tests (vitest), and
+ * prod (the pm2-spawned `dist/server/entry.mjs`, whose cwd is the deploy dir).
  *
  * `getEnv()` never throws — anything not set falls back to an obvious
  * placeholder and `isPlaceholder` is `true`. That keeps it safe to call from
@@ -8,15 +14,17 @@
  * `.env.example`; code paths that genuinely need a real value (the email send)
  * check `isPlaceholder` themselves. See `.env.example`.
  */
+import 'dotenv/config';
+
 
 export interface AppEnv {
   /** Where lead notifications go, and the "email us directly" address on errors. */
   operatorEmail: string;
-  /** Transactional email provider. */
-  emailProvider: 'resend' | 'postmark';
-  /** API key for the chosen provider. */
-  emailApiKey: string;
-  /** From-address for outgoing mail (operator notifications + visitor creds). */
+  /** O365 mailbox address used as the SMTP AUTH username. */
+  smtpUser: string;
+  /** App password generated in the M365 account for that mailbox. */
+  smtpPassword: string;
+  /** From-address for outgoing mail. For O365 this normally equals smtpUser. */
   emailFrom: string;
   /** The always-on shared demo site. */
   sharedDemoUrl: string;
@@ -30,8 +38,8 @@ export interface AppEnv {
 
 const PLACEHOLDERS = {
   operatorEmail: 'hello@docketworks.site.PLACEHOLDER',
-  emailProvider: 'resend' as const,
-  emailApiKey: 'PLACEHOLDER',
+  smtpUser: 'hello@docketworks.site.PLACEHOLDER',
+  smtpPassword: 'PLACEHOLDER',
   emailFrom: 'hello@docketworks.site.PLACEHOLDER',
   sharedDemoUrl: 'https://demo.docketworks.site/PLACEHOLDER',
   sharedDemoUsername: 'demo',
@@ -52,8 +60,8 @@ export function getEnv(): AppEnv {
 
   const fields: Array<[keyof typeof PLACEHOLDERS, string]> = [
     ['operatorEmail', 'OPERATOR_EMAIL'],
-    ['emailProvider', 'EMAIL_PROVIDER'],
-    ['emailApiKey', 'EMAIL_API_KEY'],
+    ['smtpUser', 'SMTP_USER'],
+    ['smtpPassword', 'SMTP_PASSWORD'],
     ['emailFrom', 'EMAIL_FROM'],
     ['sharedDemoUrl', 'SHARED_DEMO_URL'],
     ['sharedDemoUsername', 'SHARED_DEMO_USERNAME'],
@@ -69,12 +77,10 @@ export function getEnv(): AppEnv {
     if (isMissing) missing.push(envKey);
   }
 
-  const provider = resolved.emailProvider === 'postmark' ? 'postmark' : 'resend';
-
   cached = {
     operatorEmail: resolved.operatorEmail,
-    emailProvider: provider,
-    emailApiKey: resolved.emailApiKey,
+    smtpUser: resolved.smtpUser,
+    smtpPassword: resolved.smtpPassword,
     emailFrom: resolved.emailFrom,
     sharedDemoUrl: resolved.sharedDemoUrl,
     sharedDemoUsername: resolved.sharedDemoUsername,
